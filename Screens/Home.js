@@ -38,14 +38,6 @@ const Home = () => {
     setTasks(list);
   };
 
-  // Update Task
-  const updateTaskItem = async (id) => {
-    const res = await updateTask(id, title, content);
-    const list = [...tasks];
-    list.map((item) => (item._id === res.data._id ? res.data : item));
-    setTasks(list);
-  };
-
   // Add Task
   const addTaskItem = async () => {
     const res = await addTask(title, content);
@@ -82,31 +74,26 @@ const Home = () => {
         data={tasks}
         numColumns={1}
         renderItem={({ item }) => (
-          <View>
-            <Pressable
-              style={styles.container}
+          <View style={styles.container}>
+            <View style={styles.innerContainer}>
+              <Text style={styles.taskTitle}>{item.title.toUpperCase()}</Text>
+              <Text>{item.content}</Text>
+              <Text style={styles.taskDate}>
+                {item.createdAt.slice(11, 16)} {item.createdAt.slice(0, 10)}
+              </Text>
+            </View>
+            <FontAwesome
+              name="pencil"
+              color="blue"
               onPress={() => navigation.navigate("Detail", { item })}
-            >
-              <View style={styles.innerContainer}>
-                <Text style={styles.taskTitle}>{item.title.toUpperCase()}</Text>
-                <Text>{item.content}</Text>
-                <Text style={styles.taskDate}>
-                  {item.createdAt.slice(11, 16)} {item.createdAt.slice(0, 10)}
-                </Text>
-              </View>
-              <FontAwesome
-                name="pencil"
-                color="blue"
-                onPress={() => updateTaskItem(item._id)}
-                style={styles.icon}
-              />
-              <FontAwesome
-                name="trash-o"
-                color="red"
-                onPress={() => deleteTaskItem(item._id)}
-                style={styles.icon}
-              />
-            </Pressable>
+              style={styles.icon}
+            />
+            <FontAwesome
+              name="trash-o"
+              color="red"
+              onPress={() => deleteTaskItem(item._id)}
+              style={styles.icon}
+            />
           </View>
         )}
       />
@@ -124,11 +111,11 @@ const styles = StyleSheet.create({
     margin: 5,
     marginHorizontal: 10,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   innerContainer: {
     flexDirection: "column",
-    width: '80%'
+    width: "80%",
   },
   taskTitle: {
     fontWeight: "bold",
@@ -143,35 +130,35 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     marginTop: 50,
-    alignItems: 'flex-end'
+    alignItems: "flex-end",
   },
   input: {
     borderRadius: 5,
-    overflow: 'hidden',
-    backgroundColor: 'white',
+    overflow: "hidden",
+    backgroundColor: "white",
     paddingLeft: 16,
     padding: 16,
     marginBottom: 10,
     flex: 1,
     marginRight: 5,
-    width: '100%'
-  }, 
+    width: "100%",
+  },
   button: {
     height: 30,
     borderRadius: 5,
-    backgroundColor: '#788eec',
+    backgroundColor: "#788eec",
     width: 80,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10
-  }, 
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 10,
+  },
   buttonText: {
-    color: 'white',
-    fontSize: 20
+    color: "white",
+    fontSize: 20,
   },
   icon: {
     marginTop: 5,
     fontSize: 20,
-    marginLeft: 14
-  }
+    marginLeft: 14,
+  },
 });
