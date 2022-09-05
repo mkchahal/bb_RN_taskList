@@ -4,18 +4,18 @@ import {
   FlatList,
   StyleSheet,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { deleteTask, getAllTasks, updateTask, addTask } from "../apiUtils";
+import { deleteTask, getAllTasks, addTask } from "../apiUtils";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const navigation = useNavigation();
 
   // Fetch tasks from the server
   const getTasksList = async () => {
@@ -26,6 +26,14 @@ const Home = () => {
   useEffect(() => {
     getTasksList();
   }, []);
+
+  // Updating the tasks on coming back to Homepage
+  useEffect(() => {
+    const focusHandler = navigation.addListener("focus", () => {
+      getTasksList();
+    });
+    return focusHandler;
+  }, [navigation]);
 
   // Delete Task
   const deleteTaskItem = async (id) => {
