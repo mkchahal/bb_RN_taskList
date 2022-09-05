@@ -4,12 +4,10 @@ import {
   FlatList,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
-  Alert,
+  TouchableOpacity
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 import { deleteTask, getAllTasks, addTask } from "../apiUtils";
 
 const Home = ({ navigation }) => {
@@ -141,13 +139,10 @@ const styles = StyleSheet.create({
   },
   input: {
     borderRadius: 5,
-    overflow: "hidden",
     backgroundColor: "white",
-    paddingLeft: 16,
-    padding: 16,
+    color: '#000',
+    padding: 10,
     marginBottom: 10,
-    flex: 1,
-    marginRight: 5,
     width: "100%",
   },
   button: {
