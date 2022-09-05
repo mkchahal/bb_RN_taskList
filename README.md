@@ -9,6 +9,8 @@ A task list CRUD app in React Native to manage tasks and the related notes. This
 
 ## Demo
 
+![demo1](https://user-images.githubusercontent.com/99150991/188504585-bea84192-d6dd-421c-8e7a-c224e1df3873.png)
+![demo2](https://user-images.githubusercontent.com/99150991/188504594-80132d7a-448d-483f-9512-197aeaabc1fa.png)
 
 ## Installation
 
