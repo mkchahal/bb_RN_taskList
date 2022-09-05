@@ -55,7 +55,7 @@ const Home = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={styles.container}>
+      <View style={styles.formContainer}>
         <TextInput
           style={styles.input}
           placeholder="Add A New Task"
@@ -75,7 +75,7 @@ const Home = () => {
           value={content}
         />
         <TouchableOpacity style={styles.button} onPress={addTaskItem}>
-          <Text styles={styles.buttonText}>Add</Text>
+          <Text styles={styles.buttonText}>+ Add</Text>
         </TouchableOpacity>
       </View>
       <FlatList
@@ -89,15 +89,15 @@ const Home = () => {
             >
               <View style={styles.innerContainer}>
                 <Text style={styles.taskTitle}>{item.title.toUpperCase()}</Text>
-                <Text style={styles.taskContent}>{item.content}</Text>
+                <Text>{item.content}</Text>
                 <Text style={styles.taskDate}>
-                  {item.createdAt.slice(0, 10)}
+                  {item.createdAt.slice(11, 16)} {item.createdAt.slice(0, 10)}
                 </Text>
               </View>
               <FontAwesome
                 name="pencil"
                 color="blue"
-                onPress={() => editTaskItem(item._id)}
+                onPress={() => updateTaskItem(item._id)}
                 style={styles.icon}
               />
               <FontAwesome
@@ -116,4 +116,62 @@ const Home = () => {
 
 export default Home;
 
-const styles = {};
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#e5e5e5",
+    padding: 15,
+    borderRadius: 15,
+    margin: 5,
+    marginHorizontal: 10,
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  innerContainer: {
+    flexDirection: "column",
+    width: '80%'
+  },
+  taskTitle: {
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  taskDate: {
+    fontSize: 12,
+    marginTop: 15,
+    color: "#1a1a1a",
+  },
+  formContainer: {
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 50,
+    alignItems: 'flex-end'
+  },
+  input: {
+    borderRadius: 5,
+    overflow: 'hidden',
+    backgroundColor: 'white',
+    paddingLeft: 16,
+    padding: 16,
+    marginBottom: 10,
+    flex: 1,
+    marginRight: 5,
+    width: '100%'
+  }, 
+  button: {
+    height: 30,
+    borderRadius: 5,
+    backgroundColor: '#788eec',
+    width: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10
+  }, 
+  buttonText: {
+    color: 'white',
+    fontSize: 20
+  },
+  icon: {
+    marginTop: 5,
+    fontSize: 20,
+    marginLeft: 14
+  }
+});

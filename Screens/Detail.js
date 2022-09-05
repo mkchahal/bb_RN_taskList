@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
 
 const Details = () => {
