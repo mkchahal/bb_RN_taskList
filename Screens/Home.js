@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   Keyboard,
+  Pressable,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
@@ -73,13 +74,46 @@ const Home = () => {
           }}
           value={content}
         />
-        <TouchableOpacity style={styles.button} onPress={addTask}>
-            <Text styles={styles.buttonText}>Add</Text>
+        <TouchableOpacity style={styles.button} onPress={addTaskItem}>
+          <Text styles={styles.buttonText}>Add</Text>
         </TouchableOpacity>
       </View>
-      <FlatList data={tasks} numColumns={1}/>
+      <FlatList
+        data={tasks}
+        numColumns={1}
+        renderItem={({ item }) => (
+          <View>
+            <Pressable
+              style={styles.container}
+              onPress={() => navigation.navigate("Detail", { item })}
+            >
+              <View style={styles.innerContainer}>
+                <Text style={styles.taskTitle}>{item.title.toUpperCase()}</Text>
+                <Text style={styles.taskContent}>{item.content}</Text>
+                <Text style={styles.taskDate}>
+                  {item.createdAt.slice(0, 10)}
+                </Text>
+              </View>
+              <FontAwesome
+                name="pencil"
+                color="blue"
+                onPress={() => editTaskItem(item._id)}
+                style={styles.icon}
+              />
+              <FontAwesome
+                name="trash-o"
+                color="red"
+                onPress={() => deleteTaskItem(item._id)}
+                style={styles.icon}
+              />
+            </Pressable>
+          </View>
+        )}
+      />
     </View>
   );
 };
 
 export default Home;
+
+const styles = {};
