@@ -4,16 +4,18 @@ import {
   FlatList,
   StyleSheet,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { deleteTask, getAllTasks, addTask } from "../apiUtils";
+import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 
 const Home = ({ navigation }) => {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [sorted, setSorted] = useState(false);
 
   // Fetch tasks from the server
   const getTasksList = async () => {
@@ -50,6 +52,17 @@ const Home = ({ navigation }) => {
     setContent("");
   };
 
+  const handleSort = () => {
+    setSorted(!sorted);
+
+    const factor = sorted ? 1 : -1;
+    const list = [...tasks];
+    const sortedArr = list.sort((a, b) => {
+      return factor * (Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
+    });
+    setTasks(sortedArr);
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.formContainer}>
@@ -75,6 +88,10 @@ const Home = ({ navigation }) => {
           <Text styles={styles.buttonText}>+ Add</Text>
         </TouchableOpacity>
       </View>
+      <Pressable style={styles.buttonContainer} onPress={handleSort}>
+        <FontAwesome name="sort" color="black" style={styles.icon} />
+        <Text>Sort By Date</Text>
+      </Pressable>
       <FlatList
         data={tasks}
         numColumns={1}
@@ -122,6 +139,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: "80%",
   },
+  buttonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    margin: 10,
+  },
   taskTitle: {
     fontWeight: "bold",
     fontSize: 18,
@@ -140,7 +163,7 @@ const styles = StyleSheet.create({
   input: {
     borderRadius: 5,
     backgroundColor: "white",
-    color: '#000',
+    color: "#000",
     padding: 10,
     marginBottom: 10,
     width: "100%",
@@ -159,8 +182,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   icon: {
-    marginTop: 5,
     fontSize: 20,
     marginLeft: 14,
+    marginRight: 7,
   },
 });
