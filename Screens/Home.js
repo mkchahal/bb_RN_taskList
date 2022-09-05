@@ -8,8 +8,9 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
-import { deleteTask, getAllTasks, addTask } from "../apiUtils";
+import { deleteTask, getAllTasks, addTask } from "../Utils/apiUtils";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import { validEntry } from "../Utils/validationUtils";
 
 const Home = ({ navigation }) => {
   const [tasks, setTasks] = useState([]);
@@ -45,11 +46,13 @@ const Home = ({ navigation }) => {
 
   // Add Task
   const addTaskItem = async () => {
-    const res = await addTask(title, content);
-    const list = [res.data, ...tasks];
-    setTasks(list);
-    setTitle("");
-    setContent("");
+    if (validEntry(title, content)) {
+      const res = await addTask(title, content);
+      const list = [res.data, ...tasks];
+      setTasks(list);
+      setTitle("");
+      setContent("");
+    }
   };
 
   const handleSort = () => {
@@ -107,7 +110,7 @@ const Home = ({ navigation }) => {
             <FontAwesome
               name="pencil"
               color="blue"
-              onPress={() => navigation.navigate("Detail", { item })}
+              onPress={() => navigation.navigate("Update", { item })}
               style={styles.icon}
             />
             <FontAwesome
