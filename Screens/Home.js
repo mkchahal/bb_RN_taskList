@@ -15,7 +15,8 @@ import { deleteTask, getAllTasks, updateTask, addTask } from "../apiUtils";
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
-  const [addTask, setAddTask] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const navigation = useNavigation();
 
   // Fetch tasks from the server
@@ -52,8 +53,31 @@ const Home = () => {
   };
 
   return (
-    <View>
-      <Text>Home</Text>
+    <View style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <TextInput
+          style={styles.input}
+          placeholder="Add A New Task"
+          placeholderTextColor="#aaa"
+          onChangeText={(text) => {
+            setTitle(text);
+          }}
+          value={title}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Add Notes for the Task..."
+          placeholderTextColor="#aaa"
+          onChangeText={(text) => {
+            setContent(text);
+          }}
+          value={content}
+        />
+        <TouchableOpacity style={styles.button} onPress={addTask}>
+            <Text styles={styles.buttonText}>Add</Text>
+        </TouchableOpacity>
+      </View>
+      <FlatList data={tasks} numColumns={1}/>
     </View>
   );
 };
