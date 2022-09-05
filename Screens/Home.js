@@ -4,14 +4,11 @@ import {
   FlatList,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
-  Keyboard,
-  Pressable,
+  TouchableOpacity
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import axios from "axios";
 import { deleteTask, getAllTasks, updateTask, addTask } from "../apiUtils";
 
 const Home = () => {
@@ -34,8 +31,8 @@ const Home = () => {
   const deleteTaskItem = async (id) => {
     const res = await deleteTask(id);
     const list = [...tasks];
-    list.filter((item) => item._id !== res.data._id);
-    setTasks(list);
+    const newArr = list.filter((item) => item._id !== res.data._id);
+    setTasks(newArr);
   };
 
   // Add Task
@@ -43,6 +40,8 @@ const Home = () => {
     const res = await addTask(title, content);
     const list = [res.data, ...tasks];
     setTasks(list);
+    setTitle("");
+    setContent("");
   };
 
   return (
