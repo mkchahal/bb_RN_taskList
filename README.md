@@ -1,4 +1,4 @@
-# Task List 📝
+# Task List - Mobile 📝
 
 A task list CRUD app in React Native to manage tasks and the related notes. This app is a mobile extension of a web Task List app. The repo for the server is [mkchahal/bb_taskList](https://github.com/mkchahal/bb_taskList).
 
