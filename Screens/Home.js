@@ -5,12 +5,13 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Pressable
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { deleteTask, getAllTasks, addTask } from "../Utils/apiUtils";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import { validEntry } from "../Utils/validationUtils";
+import { updateDateFormat } from "../Utils/conversionUtils";
 
 const Home = ({ navigation }) => {
   const [tasks, setTasks] = useState([]);
@@ -100,13 +101,13 @@ const Home = ({ navigation }) => {
         numColumns={1}
         renderItem={({ item }) => (
           <View style={styles.container}>
-            <View style={styles.innerContainer}>
+            <Pressable style={styles.innerContainer} onPress={() => navigation.navigate("ViewTask", { item })}>
               <Text style={styles.taskTitle}>{item.title.toUpperCase()}</Text>
               <Text>{item.content}</Text>
               <Text style={styles.taskDate}>
-                {item.createdAt.slice(11, 16)} {item.createdAt.slice(0, 10)}
+                {updateDateFormat(item.createdAt)}
               </Text>
-            </View>
+            </Pressable>
             <FontAwesome
               name="pencil"
               color="blue"

@@ -1,7 +1,7 @@
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { getAllTasks, updateTask } from "../Utils/apiUtils";
+import { updateTask } from "../Utils/apiUtils";
 import { validEntry } from "../Utils/validationUtils";
 
 const Update = ({ route }) => {
